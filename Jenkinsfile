@@ -44,14 +44,16 @@ pipeline{
 
         stage('build image and push'){
             steps{
+                script{
                 docker.withRegistry('', DOCKER_PASS){
                     sh 'make image'
-            }
+                    }
 
             // Push docker image with latest and ${IMAGE_TAG} tags.
                 docker.withRegistry('', DOCKER_PASS){
                     sh 'make push'
                 }
+            }
         }
     }
 }
